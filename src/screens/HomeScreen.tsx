@@ -1,4 +1,4 @@
-import { StyleSheet, Text,FlatList, View ,SafeAreaView, ScrollView,TouchableOpacity,TextInput} from 'react-native'
+import { StyleSheet, Text,FlatList, View ,SafeAreaView, ScrollView,TouchableOpacity,TextInput, Dimensions} from 'react-native'
 import React, { useRef, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../store/store'
@@ -36,7 +36,7 @@ const getCoffeList=(category:string,data:any)=>{
 }
 
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:any) => {
   const coffeList=useStore((state:any)=>state.coffeList);
   const beanList=useStore((state:any)=>state.beanList)
 
@@ -103,7 +103,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <TextInput placeholder='find coffe...' 
             value={searchText}
-            onChangeText={text=>{setSearchText(text)}}
+            onChangeText={text=>{setSearchText(text); searchCoffee(text)}}
             placeholderTextColor={COLORS.primaryLightGreyHex}
             style={styles.searchText}/>
             {searchText.length>0?(
@@ -178,13 +178,23 @@ const HomeScreen = () => {
         <FlatList
           ref={ListRef}
           horizontal
+          ListEmptyComponent={
+            <View style={styles.notFound}>
+              <Text style={styles.categoryTextActive}>No Coffe Found</Text>
+            </View>
+          }
           showsHorizontalScrollIndicator={false}
           data={sortedCoffe}
           contentContainerStyle={styles.sortedCoffeListContainer}
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
+              <TouchableOpacity onPress={()=>
+                navigation.push('Details',{
+                index:item.index,
+                id:item.id,
+                type:item.type
+              })}
                 >
                 <CoffeCard
                   id={item.id}
@@ -213,7 +223,12 @@ const HomeScreen = () => {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
+              <TouchableOpacity onPress={()=>
+                navigation.push('Details',{
+                index:item.index,
+                id:item.id,
+                type:item.type
+              })}
                 >
                 <CoffeCard
                   id={item.id}
@@ -273,6 +288,12 @@ const styles = StyleSheet.create({
     fontSize:16,
     color:COLORS.primaryLightGreyHex,
     fontWeight:'bold'
+  },
+  notFound:{
+    width:Dimensions.get('window').width-30*2,
+    alignItems:'center',
+    justifyContent:'center',
+    paddingVertical:36*3.6
   },
   CoffeeBeansTitle: {
     fontSize: FONTSIZE.size_18,
