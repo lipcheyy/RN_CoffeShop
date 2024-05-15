@@ -39,7 +39,7 @@ const getCoffeList=(category:string,data:any)=>{
 const HomeScreen = ({navigation}:any) => {
   const coffeList=useStore((state:any)=>state.coffeList);
   const beanList=useStore((state:any)=>state.beanList)
-
+  
   const [categories,setCategory]=useState(getCategory(coffeList))
   const [searchText,setSearchText]=useState('')
   const [categoryId,setCategoryId]=useState({
@@ -189,12 +189,14 @@ const HomeScreen = ({navigation}:any) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={()=>
-                navigation.push('Details',{
-                index:item.index,
-                id:item.id,
-                type:item.type
-              })}
+              <TouchableOpacity onPress={() => {
+                navigation.push('Details', {
+                  index: item.index,
+                  id: item.id,
+                  type: item.type,
+                  
+                });
+              }}
                 >
                 <CoffeCard
                   id={item.id}
@@ -223,12 +225,14 @@ const HomeScreen = ({navigation}:any) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={()=>
-                navigation.push('Details',{
-                index:item.index,
-                id:item.id,
-                type:item.type
-              })}
+              <TouchableOpacity onPress={() => {
+                navigation.push('Details', {
+                  index: item.index,
+                  id: item.id,
+                  type: item.type,
+                  
+                });
+              }}
                 >
                 <CoffeCard
                   id={item.id}

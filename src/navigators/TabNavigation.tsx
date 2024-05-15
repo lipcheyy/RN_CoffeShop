@@ -35,7 +35,7 @@ const TabNavigation = () => {
                         size={25} 
                         color={focused
                             ?COLORS.primaryOrangeHex
-                            :COLORS.primaryLightGreyHex}
+                            :COLORS.primaryDarkGreyHex}
                             style={focused ? styles.activeIcon : null} />
                     )
                 }
@@ -48,7 +48,7 @@ const TabNavigation = () => {
                         size={25} 
                         color={focused
                             ?COLORS.primaryOrangeHex
-                            :COLORS.primaryLightGreyHex}
+                            :COLORS.primaryDarkGreyHex}
                             style={focused ? styles.activeIcon : null} />
                     )
                 }
@@ -61,7 +61,7 @@ const TabNavigation = () => {
                         size={25} 
                         color={focused
                             ?COLORS.primaryOrangeHex
-                            :COLORS.primaryLightGreyHex}
+                            :COLORS.primaryDarkGreyHex}
                         style={focused ? styles.activeIcon : null} />
                     )
                 }
@@ -74,11 +74,12 @@ const TabNavigation = () => {
                         size={25} 
                         color={focused
                             ?COLORS.primaryOrangeHex
-                            :COLORS.primaryLightGreyHex}
+                            :COLORS.primaryDarkGreyHex}
                         style={focused ? styles.activeIcon : null} />
                     )
                 }
             }></Tab.Screen>
+            
         </Tab.Navigator>
     )
 }

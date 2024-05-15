@@ -3,8 +3,9 @@ import React from 'react';
 import { useFonts } from 'expo-font';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import Details from './src/screens/Details';
+
 import Payments from './src/screens/Payments';
+import DetailsScreen from './src/screens/DetailsScreen'
 
 import TabNavigation from './src/navigators/TabNavigation';
 const Stack= createNativeStackNavigator();
@@ -21,7 +22,7 @@ const App = () => {
         </Stack.Screen>
         <Stack.Screen 
           name='Details' 
-          component={Details} 
+          component={DetailsScreen} 
           options={{animation:'slide_from_bottom'}}>
 
         </Stack.Screen>
