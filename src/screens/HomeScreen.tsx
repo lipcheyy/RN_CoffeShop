@@ -1,7 +1,8 @@
-import { StyleSheet, Text,FlatList, View ,SafeAreaView, ScrollView,TouchableOpacity,TextInput, Dimensions} from 'react-native'
+import { StyleSheet, Text,FlatList, View ,SafeAreaView, ScrollView,TouchableOpacity,TextInput, Dimensions, Alert} from 'react-native'
 import React, { useRef, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../store/store'
+import Toast from 'react-native-toast-message';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme'
 import { StatusBar } from 'expo-status-bar'
@@ -35,11 +36,15 @@ const getCoffeList=(category:string,data:any)=>{
     }
 }
 
-
 const HomeScreen = ({navigation}:any) => {
   const coffeList=useStore((state:any)=>state.coffeList);
   const beanList=useStore((state:any)=>state.beanList)
   
+//cart
+const addToCart = useStore((state: any) => state.addToCart);
+  const calculateCartPrice = useStore((state: any) => state.calcCartPrice);
+  //cart/
+
   const [categories,setCategory]=useState(getCategory(coffeList))
   const [searchText,setSearchText]=useState('')
   const [categoryId,setCategoryId]=useState({
@@ -75,6 +80,32 @@ const HomeScreen = ({navigation}:any) => {
     setSorted([...coffeList]);
     setSearchText('');
   };
+
+  const addToCarthandler = ({
+    id,
+    index,
+    name,
+    roasted,
+    imagelink_square,
+    special_ingredient,
+    type,
+    prices,
+  }: any) => {
+    addToCart({
+      id,
+      index,
+      name,
+      roasted,
+      imagelink_square,
+      special_ingredient,
+      type,
+      prices,
+    });
+    calculateCartPrice();
+    Alert.alert("Success",`${name} add to cart`)
+    
+  };
+  
   return (
     <View style={styles.mainContainer}>
       
@@ -208,7 +239,7 @@ const HomeScreen = ({navigation}:any) => {
                   special_ingredient={item.special_ingredient}
                   average_rating={item.average_rating}
                   price={item.prices[2]}
-                  buttonPressHandler={()=>{}}
+                  buttonPressHandler={addToCarthandler}
                 />
               </TouchableOpacity>
             );
@@ -244,7 +275,7 @@ const HomeScreen = ({navigation}:any) => {
                   special_ingredient={item.special_ingredient}
                   average_rating={item.average_rating}
                   price={item.prices[2]}
-                  buttonPressHandler={()=>{}}
+                  buttonPressHandler={addToCarthandler}
                 />
               </TouchableOpacity>
             );

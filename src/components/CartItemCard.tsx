@@ -1,18 +1,11 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageProps,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet,Text,View,ImageProps,Image,TouchableOpacity,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import {
   BORDERRADIUS,
   COLORS,
-  FONTFAMILY,
+  
   FONTSIZE,
   SPACING,
 } from '../theme/theme';
@@ -91,11 +84,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                   onPress={() => {
                     decrementCartItemQuantityHandler(id, data.size);
                   }}>
-                  <CustomIcon
-                    name="minus"
-                    color={COLORS.primaryWhiteHex}
-                    size={FONTSIZE.size_10}
-                  />
+                  <Feather name="minus" size={10} color={COLORS.primaryWhiteHex} />
                 </TouchableOpacity>
                 <View style={styles.CartItemQuantityContainer}>
                   <Text style={styles.CartItemQuantityText}>
@@ -107,11 +96,7 @@ const CartItemCard: React.FC<CartItemProps> = ({
                   onPress={() => {
                     incrementCartItemQuantityHandler(id, data.size);
                   }}>
-                  <CustomIcon
-                    name="add"
-                    color={COLORS.primaryWhiteHex}
-                    size={FONTSIZE.size_10}
-                  />
+                  <Feather name="plus" size={10} color={COLORS.primaryWhiteHex} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -207,12 +192,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   CartItemTitle: {
-    fontFamily: FONTFAMILY.poppins_medium,
+    
     fontSize: FONTSIZE.size_18,
     color: COLORS.primaryWhiteHex,
   },
   CartItemSubtitle: {
-    fontFamily: FONTFAMILY.poppins_regular,
+    
     fontSize: FONTSIZE.size_12,
     color: COLORS.secondaryLightGreyHex,
   },
@@ -225,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryDarkGreyHex,
   },
   CartItemRoastedText: {
-    fontFamily: FONTFAMILY.poppins_regular,
+    
     fontSize: FONTSIZE.size_10,
     color: COLORS.primaryWhiteHex,
   },
@@ -251,11 +236,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   SizeText: {
-    fontFamily: FONTFAMILY.poppins_medium,
+    
     color: COLORS.secondaryLightGreyHex,
   },
   SizeCurrency: {
-    fontFamily: FONTFAMILY.poppins_semibold,
+    
     fontSize: FONTSIZE.size_18,
     color: COLORS.primaryOrangeHex,
   },
@@ -277,7 +262,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.space_4,
   },
   CartItemQuantityText: {
-    fontFamily: FONTFAMILY.poppins_semibold,
+    
     fontSize: FONTSIZE.size_16,
     color: COLORS.primaryWhiteHex,
   },

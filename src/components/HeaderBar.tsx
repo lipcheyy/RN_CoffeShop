@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   headerTitle:{
     // fontFamily:FONTFAMILY.poppins_semibold,
     fontSize:FONTSIZE.size_20,
-    color:COLORS.primaryWhiteHex
+    color:COLORS.primaryWhiteHex,
+    fontWeight:'bold'
   }
 })
 export default HeaderBar

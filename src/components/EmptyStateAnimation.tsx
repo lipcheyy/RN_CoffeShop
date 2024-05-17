@@ -28,10 +28,11 @@ const styles = StyleSheet.create({
   },
   LottieStyle: {
     height: 300,
+    marginTop:40
   },
   LottieText: {
-    fontFamily: FONTFAMILY.poppins_medium,
-    fontSize: FONTSIZE.size_16,
+    fontWeight:'bold',
+    fontSize: FONTSIZE.size_24,
     color: COLORS.primaryOrangeHex,
     textAlign: 'center',
   },

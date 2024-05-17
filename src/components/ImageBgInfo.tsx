@@ -122,11 +122,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
             </View>
             <View style={styles.InfoContainerRow}>
               <View style={styles.RatingContainer}>
-                <CustomIcon
-                  name={'star'}
-                  color={COLORS.primaryOrangeHex}
-                  size={FONTSIZE.size_20}
-                />
+              <AntDesign name="star" size={20} color={COLORS.primaryOrangeHex} />
                 <Text style={styles.RatingText}>{average_rating}</Text>
                 <Text style={styles.RatingCountText}>({ratings_count})</Text>
               </View>
