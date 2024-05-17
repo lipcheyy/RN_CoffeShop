@@ -14,38 +14,43 @@ export const useStore=create(
             cartList:[],
             orderHistoryList:[],
             cartPrice:0,
-            addToCart:(cartItem:any)=>set(produce(state=>{
-                let found =false;
-                for(let i =0;i<state.cartList.length;i++){
-                    if (state.cartList[i].id==cartItem.id){
-                        found=true;
-                        let size=false;
-                        for(let j=0;j<state.cartList[i].prices.length;j++){
-                            if(state.cartList[i].prices[j].size==cartItem.prices[0].size){
-                                size=true;
-                                state.cartList[i].prices[j].quantity++;
-                                break;
-                            }
+            addToCart: (cartItem: any) =>
+              set(
+                produce(state => {
+                  let found = false;
+                  for (let i = 0; i < state.cartList.length; i++) {
+                    if (state.cartList[i].id == cartItem.id) {
+                      found = true;
+                      let size = false;
+                      for (let j = 0; j < state.cartList[i].prices.length; j++) {
+                        if (
+                          state.cartList[i].prices[j].size == cartItem.prices[0].size
+                        ) {
+                          size = true;
+                          state.cartList[i].prices[j].quantity++;
+                          break;
                         }
-                        if(size==false){
-                            state.cartList[i].prices.push(cartItem.prices[0])
+                      }
+                      if (size == false) {
+                        state.cartList[i].prices.push(cartItem.prices[0]);
+                      }
+                      state.cartList[i].prices.sort((a: any, b: any) => {
+                        if (a.size > b.size) {
+                          return -1;
                         }
-                        state.cartList[i].price.sort((a:any,b:any)=>{
-                            if(a.size>b.size){
-                                return -1;
-                            }
-                            if(a.size<b.size){
-                                return 1;
-                            }
-                            return 0;
-                        });
-                        break;
+                        if (a.size < b.size) {
+                          return 1;
+                        }
+                        return 0;
+                      });
+                      break;
                     }
-                }
-                if(found==false){
+                  }
+                  if (found == false) {
                     state.cartList.push(cartItem);
-                }
-            })),
+                  }
+                }),
+              ),
             calcCartPrice:()=>set(produce(state=>{
                 let totalPrice=0;
                 for(let i=0;i<state.cartList.length;i++){
@@ -124,6 +129,48 @@ export const useStore=create(
                     state.favoritesList.splice(spliceIndex, 1);
                   }),
                 ),
+                incrementCartItemQuantity: (id: string, size: string) =>
+                    set(
+                      produce(state => {
+                        for (let i = 0; i < state.cartList.length; i++) {
+                          if (state.cartList[i].id == id) {
+                            for (let j = 0; j < state.cartList[i].prices.length; j++) {
+                              if (state.cartList[i].prices[j].size == size) {
+                                state.cartList[i].prices[j].quantity++;
+                                break;
+                              }
+                            }
+                          }
+                        }
+                      }),
+                    ),
+            decrementCartItemQuantity: (id: string, size: string) =>
+            set(
+            produce(state => {
+                for (let i = 0; i < state.cartList.length; i++) {
+                if (state.cartList[i].id == id) {
+                    for (let j = 0; j < state.cartList[i].prices.length; j++) {
+                    if (state.cartList[i].prices[j].size == size) {
+                        if (state.cartList[i].prices.length > 1) {
+                        if (state.cartList[i].prices[j].quantity > 1) {
+                            state.cartList[i].prices[j].quantity--;
+                        } else {
+                            state.cartList[i].prices.splice(j, 1);
+                        }
+                        } else {
+                        if (state.cartList[i].prices[j].quantity > 1) {
+                            state.cartList[i].prices[j].quantity--;
+                        } else {
+                            state.cartList.splice(i, 1);
+                        }
+                        }
+                        break;
+                    }
+                    }
+                }
+                }
+            }),
+            ),
         }),
         {
             name:'coffe-app',
