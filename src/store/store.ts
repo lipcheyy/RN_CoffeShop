@@ -171,9 +171,39 @@ export const useStore=create(
                 }
             }),
             ),
-        }),
+            addToOrderHistoryListFromCart: () =>
+              set(
+                produce(state => {
+                  let temp = state.cartList.reduce(
+                    (accumulator: number, currentValue: any) =>
+                      accumulator + parseFloat(currentValue.ItemPrice),
+                    0,
+                  );
+                  if (state.orderHistoryList.length > 0) {
+                    state.orderHistoryList.unshift({
+                      OrderDate:
+                        new Date().toDateString() +
+                        ' ' +
+                        new Date().toLocaleTimeString(),
+                        cartList: state.cartList,
+                      CartListPrice: temp.toFixed(2).toString(),
+                    });
+                  } else {
+                    state.orderHistoryList.push({
+                      OrderDate:
+                        new Date().toDateString() +
+                        ' ' +
+                        new Date().toLocaleTimeString(),
+                        cartList: state.cartList,
+                      CartListPrice: temp.toFixed(2).toString(),
+                    });
+                  }
+                  state.cartList = [];
+                }),
+              ),
+          }),
         {
-            name:'coffe-app',
+            name:'coffee-app',
             storage:createJSONStorage(()=>AsyncStorage)
         }
     )
